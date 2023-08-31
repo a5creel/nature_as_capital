@@ -1,0 +1,147 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=2.5cm]{geometry} % Set Margins
+
+%% Math and math fonts
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{bbm} % for \mathbbm{1}
+
+% date
+\usepackage[nodayofweek]{datetime}
+
+% Color
+\usepackage{color, xcolor}
+
+% Misc
+\usepackage{environ}  % \collect@body in asmmath
+\usepackage{graphicx} % \includegraphics options
+\usepackage{mdframed} % text boxes
+\usepackage{indentfirst} % Indent first paragraph after section header
+\usepackage[shortlabels]{enumitem} % Control enumerate items with [(a)]
+\usepackage{comment} % Comments
+\usepackage{fancyhdr} % Headers and footers
+
+% Tables
+\usepackage{array}
+
+% Sub-figures and figure placement
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} 
+
+% Graphing
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+% Title Placement
+\usepackage{titling}
+\setlength{\droptitle}{-6em}
+
+%set indent to 
+\setlength{\parindent}{0pt}
+
+%for headers 
+\pagestyle{fancy}
+
+\lhead{Creel}
+\chead{SCC}
+\rhead{Nature as Capital}
+
+\title{Week Thirteen -- Social Cost of Carbon}
+\author{Andie Creel}
+
+% Hyper refs
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor  = blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor = blue,
+    anchorcolor = blue
+}
+
+% % Citation management
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authordate,open={(},close={)}}
+
+\begin{document}
+\maketitle
+
+\section{Social Cost of Carbon}
+The DICE model started as a modeling exercise but really took off as \textit{the} model. Keep in mind that it relies on Negishi weights which are the inverse of marginal utility of money. Negishi weights up-weight the rich and down-weights the poor because wealthy people tend to have a lower marginal utility for money. 
+
+\begin{align}
+    SWF = \max_{c(t)} \sum_t U(C(t), P(t)) (1 + \rho)^{-1}\\
+    U(C,P) = \frac{P(C^{1- \alpha} - 1}{1 - \alpha}\\
+    r = \rho + \alpha g \label{ramsey}
+\end{align}
+Where $C$ is consumption and $P$ is population and $\rho$ is the pure rate of social time preference, $r$ is the discount rate. Not that \ref{ramsey} is the Ramsey rule, which we have seen before. 
+
+Production is written 
+\begin{align}
+    Q(t) = \Omega(t)A(t)K(t)^\gamma P(t)^{1-\gamma}
+\end{align}
+$\gamma$ is the percent change in capital wrt change in capital. K is produced capital. The population is the labor supply. This is Cobb-Douglas form which means we've assumed constant returns to scale. $A$ is the Solow residual \textit{aka} total factor productivity. $\Omega$ is where the climate effects enter. 
+\begin{align}
+    C(t) = Q(t) - I(t)
+\end{align}
+The consumer is just production $Q$ minus investment.
+\begin{align}
+    K(t) = (1 - \delta_K) K(t-1) + I(t)
+\end{align}
+where $\delta_K$ is the depreciation of capital. \\
+
+Emissions are written 
+\begin{align}
+    E(t) = [1 - \mu(t)] \sigma(t) Q(t)
+\end{align}
+$\mu$ is the investment in emissions reduction. $\sigma$ assumes no emissions control but assumes market powers will make it so that production is less emissions-intensive. 
+\begin{align}
+    M(t) = \beta E(t) + (1 - \delta_M) M(t-1)
+\end{align}
+where $M$ the stock of emissions in the atmosphere. Notice is=t works just like the capital stock. 
+
+\begin{align}
+    F(t) = f(M(t))
+\end{align}
+where $F(t)$ is the effect of emissions on climate. \\
+
+Nordhaus then creates a damage function 
+\begin{align}
+    d(t) = 0.0133 (\frac{T(t)}{3})^2 Q(t)
+\end{align}
+damages don't change investment or the depreciation of capital. It does affect productivity 
+\begin{align}
+    \Omega(t) = \frac{(1- b_1) \mu(t)^{b_3}}{1 + d(t)}
+\end{align}
+Eli: we're over-investing in getting a damage function rather than figuring out how to have damages affect investment and depreciation. 
+
+\begin{align}
+    \max_{C(t), \mu(t)} = \sum_t \frac{P(t) (C(t)^{1- \alpha} - 1)}{1 - \alpha} (\frac{1}{1 + \rho})^t
+\end{align}
+
+Finally, we can plug loads of stuff in. 
+\begin{multline}
+    \Delta K = (1 -\delta_K) K(t-1) + \frac{(1- b_1) \mu(t)^{b_3}}{1 + d(t)} A(t-1) K(t-1)^\gamma P(t-1)^\gamma - C(t-1)P(t -1 ) - K(t-1)
+\end{multline}
+
+\begin{multline}
+    \Delta M = (1 - \delta_M) M(t-1) + \beta (1 - \mu(t -1)) \sigma(t-1) \frac{(1 - b_1) \mu(t-1)^{b_2}}{1 + \delta(M(t-1))}A(t-1) K(t-1)^\gamma P(t-1)^(1 - \gamma) - M(t)
+\end{multline}
+
+\begin{align}
+    H = \frac{P(t) (C(t)^{1 - \alpha} - 1)}{1 - \alpha} \frac{1}{1+ \rho} + \lambda(t) \frac{1}{1+ \rho} \Delta K + \eta(t) \frac{1}{1+ \rho} \Delta M  \label{hamil}
+\end{align} 
+\ref{hamil} is just a Hamiltonian with two stocks, $K$ and $M$. He solved it using the expensive version of solver. Eli described this first DICE model as a term project on steroids. 
+
+\section{EPA's "textbook" on SCC}
+Best methods available for calculating SCC: \url{https://www.epa.gov/system/files/documents/2022-11/epa_scghg_report_draft_0.pdf}
+
+As of April of 2023, it was still being peer-reviewed.
+
+
+\end{document}

@@ -1,0 +1,258 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=2.5cm]{geometry} % Set Margins
+
+%% Math and math fonts
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{bbm} % for \mathbbm{1}
+
+% date
+\usepackage[nodayofweek]{datetime}
+
+% Color
+\usepackage{color, xcolor}
+
+% Misc
+\usepackage{environ}  % \collect@body in asmmath
+\usepackage{graphicx} % \includegraphics options
+\usepackage{mdframed} % text boxes
+\usepackage{indentfirst} % Indent first paragraph after section header
+\usepackage[shortlabels]{enumitem} % Control enumerate items with [(a)]
+\usepackage{comment} % Comments
+\usepackage{fancyhdr} % Headers and footers
+
+% Tables
+\usepackage{array}
+
+% Sub-figures and figure placement
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} 
+
+% Graphing
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+% Title Placement
+\usepackage{titling}
+\setlength{\droptitle}{-6em}
+
+%set indent to 
+\setlength{\parindent}{0pt}
+
+%for headers 
+\pagestyle{fancy}
+
+\lhead{Creel}
+\chead{Optimal Timing}
+\rhead{Nature as Capital}
+
+\title{Week Eleven -- Optimal Timing Decisions (forest rotations)}
+\author{Andie Creel}
+
+% Hyper refs
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor  = blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor = blue,
+    anchorcolor = blue
+}
+
+% % Citation management
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authordate,open={(},close={)}}
+
+\begin{document}
+\maketitle
+
+\section{Mean Annual Increment}
+
+We want to model the growth rate of a tree stand as $Q(t)$. It has a first derivative $Q'(t)$ and grows at a decreasing rate $Q''(t) <0$ for some $t > t^s$. \\
+
+Conrad likes this equation:
+\begin{align}
+    Q(t) = at + bt^2 - d t^3
+\end{align}
+
+The literature tends to use:
+\begin{align}
+    Q(t) &= e^{a-b/t} \\
+    \ln(Q(t)) &= a - b \frac{1}{t}
+\end{align}
+
+There's a combination that is still in use:
+\begin{align}
+    Q(t) = e^{a - bt^-1 + ct^-2}
+\end{align}
+Most of these equations came from Germany a long time ago and haven't changed much sense. \\
+
+$T$ is going to be the rotation of cut time. In fisheries we talked about maximum sustained yield, in forestry we talk about mean annual increment (MAI). The objective it to maximize MAI by choosing the optimal $T$. 
+
+Mean annual increment: 
+\begin{align}
+    \frac{Q(T)}{T}
+\end{align}
+
+Take the derivative and set it equal to zero to maximize (choice variable is T):
+
+\begin{align}
+    \frac{\partial (\frac{Q(T)}{T})}{\partial T} = \frac{Q'(T) T - Q(T)}{T^2} = 0\\
+    \implies Q'(T) = \frac{Q(T)}{T}
+\end{align}
+
+In words: the maximal value of Mean Annual Increment $Q(T)/T$ will equal the derivative of the growth rate $Q'(T)$. \\
+
+This has maximized the \textit{volumn}. But there are loads of characteristics that may influence profit that are ignored (discounting, quality, etc). \\
+
+\section{Profit}
+
+Assume a manager can harvest with zero costs. Their profit is 
+\begin{align}
+    \pi = p Q(T) e^{-\delta T}
+\end{align}
+
+Currently, we're not accounting for whether the manager owns the land. If they don't own the land, we may have an open access problem and they'll have an infinite discount rate which leads to a discount factor equal to zero and they'll harvest everything they can in time period 0. Instead, assume they own the land and it has a \textbf{scrap value} after harvest:
+
+\begin{align}
+    \pi = (pQ(T) + V(L)) e^{-\delta T} \label{profit}
+\end{align}
+The manager would prefer to harvest sooner rather than later because of the discount rate. Their object is to maximize \ref{profit}. Take the derivative and set it equal to zero:
+\begin{align}
+    \frac{\partial \pi}{\partial T} = -\delta e^{-\delta T } (pQ(T) + V(L)) + e^{-\delta T}p Q'(T) = 0\\
+    \delta (pQ(T) + V(L)) = pQ'(T)\\
+    \delta = \frac{Q'(T)}{Q(T) + \frac{V(L)}{P}} \label{crit_disc}
+\end{align}
+
+We haven't solved for $T$ yet, but equation \ref{crit_disc} pins down the optimal $T$. We could say "the optimal $T$ is defined by equation \ref{crit_disc}".\\
+
+The discount rate can be thought of opportunity cost of capital. Once you have the liquid value of an asset (you've harvested the trees) you could invest it in something else (\textit{aka} outside option). \\
+
+You can think of the right-hand side of \ref{crit_disc} as the \textbf{critical discount rate}. Once the critical discount rate is larger than the discount rate $\delta$ you will cut. As the critical discount rate increases, the manager becomes more impatient and wants to cut more often ($T$ gets shorter).\\
+
+\section{Working Land Forestry}
+When it's working land, the manager will replant after the first rotation. The sooner they finish the first rotation, the sooner they can plant the second. \\
+
+We will now incur a constant  harvest/planting cost $c$ at the end of a rotation. 
+
+The new profit equation is 
+\begin{align}
+    \pi = [pQ(T_1) - c]e^{-\delta T_1} + [pQ(T_2) - c]e^{\delta [T_1 + T_2]}
+\end{align}
+Assume $T_1 = T_2 = T$ meaning the rotation period is always the same. 
+
+\begin{align}
+    \pi = e^{-\delta T} [pQ(T) - c](1+ e^{-\delta T})
+\end{align}
+
+This connects to what we say above. We can think of the value of a second rotation being equal to the value of scrap value. 
+
+\begin{align}
+    \pi = p(Q(T_1) + V(T_1))e^{-\delta T_1}\\
+    V(T_1) = solution \ for \ 2nd \ rotation
+\end{align}
+
+What Faustmann found was 
+
+\begin{align}
+    \pi = \frac{e^{-\delta T}[pQ(T) - c]}{1 - e^{-\delta T}} \implies \frac{pQ(T) - c}{e^{\delta T} - 1}
+\end{align}
+where the objective is to maximize the right-hand side. Take the derivative and set it equal to zero: 
+\begin{align}
+    \frac{\partial \pi}{\partial T} = \frac{pQ'(T) (e^{\delta T}-1) - (pQ(T) - c)\delta e^{\delta T}}{(e^{\delta T} - 1)^2} = 0 \\
+    \implies \delta = \frac{Q'(T)}{Q(T) - \frac{c}{p} + \frac{\pi}{p}} \label{crit_disc_forester}
+\end{align}
+
+Again, we end up with an equation that pins down $T$ in equation \ref{crit_disc_forester}. It looks the same as \ref{crit_disc}.\\
+
+
+If $\pi - c = V(L)$, then a forester and a developer will choose the exact same $T$. Typically, we've heard foresters claim they're fundamentally more aligned with conservation than developers, but their incentive structure is exactly the same. $\pi - c = V(L)$ won't necessarily hold every time, but the point is that their objective functions work the exact same way. \\
+
+A fun example is to think about $T$ as how often you choose to get a haircut. 
+
+\section{Amenity Value/Ecosystem Services/Co-Benefits}
+\begin{align}
+    \frac{[pQ(T) - C]e^{\delta T}}{1 - e^{-\delta T}} = \pi(T)\\
+    \pi(T) = \frac{\int_0^T e^{\delta t}F(T) dt + e^{-\delta T} p Q(T)}{1 - e^{-\delta T}}\\
+    \pi(T) = \frac{\int_0^T e^{\delta t}F(Q(T)) dt + e^{-\delta T} p Q(T)}{1 - e^{-\delta T}}
+\end{align}
+Currently, we're assuming $c = 0$ but it would be easy to add in a constant cost. The objective is to maximize profit, so we take the derivative of profit and set it equal to 0. 
+
+\begin{align}
+    \frac{\partial \pi}{\partial T} = 0
+\end{align}
+
+He's assuming in $F(Q(T))$ that all the amenities are only experienced as the stand is standing (not cut). 
+
+\section{Hartman}
+
+\textbf{Faustman:}
+\begin{align}
+    \pi(T) = \frac{[pQ(T) - C]e^{-\delta T}}{1 - e^{-\delta T}} 
+\end{align}
+
+\textbf{Hartman:}
+\begin{align}
+    \pi(T) = \frac{\int_0^T e^{-\delta t} F(Q(T)) \partial t + e^{-\delta T} p Q(T) }{1 - e^{-\delta T}}|_{c = 0}
+\end{align}
+this $|_{c=0}$ means that we're assuming costs are zero. You can have costs, but this makes the algebra easier. $\int_0^T e^{-\delta t} F(Q(T)) \partial t$ is the present amenity value, summed through all time. Amenities can be carbon sequestration, recreation, habitat, etc. \\
+
+To maximize the hartman model $\frac{\partial \pi}{\partial T} = 0$. Once  you go through all the algebra you get 
+\begin{align}
+    \delta = \frac{pQ'(T) + F(T)}{A(T)A} \label{hart_solution}\\
+    A = (\frac{1}{1 - e^{-\delta T)}} + \frac{\int_0^T e^{-\delta t} F(Q(T)) dt}{pQ(T)(1 - e^{-\delta T}}
+\end{align}
+
+recall the solution to the Faustman is in equation \ref{crit_disc_forester}, which looks similar to the Hartman solution in equation \ref{hart_solution}. \\
+
+The Hartman solution has a higher numerator, therefore a higher critical discount rate. We're going to wait to harvest longer (which makes sense because the trees are now providing an amenity value). \\
+
+When considering the critical discount rate if 
+\begin{align}
+    \delta < \frac{pQ'(T) + F(T)}{A(T)A} \label{hart_solution}
+\end{align}
+then the amenity value of the standing forest is always higher than the value of cutting them done. If this is true, then the manager has just created a conservation reserve (because the benefit of cutting will never exceed the benefit of the amenity value of the standing forest). \\
+
+Keep in mind the choice variable in a Faustman problem is how long you wait to harvest the trees $T$. \ref{crit_disc_forester} and \ref{hart_solution} both pin down $T$. If you want to increase $T$ (keep the forest standing longer) then you want to measure lots of amenity values $Q(T)$ so that the critical discount rate increases (RHS of \ref{hart_solution}). This causes $T$ to increase. 
+
+
+\section{Returning to Faustman Problem}
+We can rearrange the Faustman equation to 
+\begin{align}
+    \frac{Q'(T)}{Q(T) - c/p} = \frac{\delta}{1 - e^{-\delta T}}
+\end{align}
+
+Let's think about some comparative statics (which is just a fancy name for sensitivity analysis). If you increase costs, $T$ will increase. if you decrease costs, $T$ will shorten. If you increase $\delta$, $T$ will decrease. 
+
+\section{Payment for Ecosystem Services}
+
+\begin{align}
+    V(a(t), x(t)) = max_{c(t), h(t)} \int_t^\infty U(C) e^{-\rho(\tau - t)}d \tau
+\end{align}
+
+let $h = {0,1}$ which is a binary decision to harvest or not. 
+
+\begin{align}
+    \dot a = m + \delta a -c + h(p(x)x - w)A + (1-h)pA
+\end{align}
+
+$a$ is money in bank accounts, there for $\dot a$ is the growth rate of your savings and $x$ is trees and $m$ is money from other acitivities. 
+
+\begin{align}
+    x(t+\epsilon) = F(x(t)) = \begin{cases}
+    x(t) + G(x) & h = 1\\
+    x_1 & h = 0
+    \end{cases}
+\end{align}
+
+
+\begin{align}
+    \delta (Rb - a) x^2 + \delta c X + c R = 0
+\end{align}
+
+\end{document}

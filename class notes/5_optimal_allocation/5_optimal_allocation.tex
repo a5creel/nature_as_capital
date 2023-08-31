@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mathrsfs}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+\usepackage{caption}
+
+\setlength{\parindent}{0pt}
+
+
+%for headers 
+\pagestyle{fancy}
+\fancyhf{} % for header/footer
+
+\lhead{Creel}
+\rhead{ENV 795 - Nature as Capital}
+\chead{\textbf{Allocation}}
+
+\title{Week Five - Optimal Allocation}
+\author{Andie Creel for Nature as Capital}
+\date{February 24th, 2023}
+
+
+\begin{document}
+\maketitle
+
+\section{Review of Welfare vs Wellbeing}
+\textbf{Wellbeing} is a broad concept that tends to be philosophical and outside of economists scope to answer. It considers whether we care about the "wellbeing" of things other than individual people, and no one should want economists to be the ones answering that question because economists are not trained to answer that question. \\
+
+\textbf{Welfare} measures the use or non-use dividends an individuals experiences from a consumptive or non-consumptive good for one time period
+
+$$W(s(t)).$$
+For example, this would be the value of renting a car for a year. Estimating welfare is something economists are trained to do! \\
+
+\textbf{Intertemporal welfare} is the sum of an individual's discounted welfare through time. We also refer to this as the \textbf{value function} 
+
+$$V(s(t) = \int_0^\infty exp(-\delta \tau ) W(s(t)) d \tau.$$
+For example, this would be the value of owning a car forever. \\
+
+\textbf{Wealth} is the capital price multiplied by the stock level (price times quantity). If you're measuring the wealth of a portfolio, you would sum across all the stocks $i$
+
+$$wealth = \sum_i \lambda_i s_i$$
+where $i$ denotes different stocks. Note: I have not written the prices as a function of a stock $\lambda_i(s_i)$. This is because we're getting the wealth of a portfolio \textit{at the current stock levels.} Because we're not allowing stock level to change, we only need to consider the price at the \textit{current stock level}.
+
+\section{Lagrangians}
+We use Lagrangians to solve for the optimal quantity of goods to consume in order to maximize a utility function, subject to a budget constraint.\\
+
+A note on the word consume: traditionally, economists only thought people increased their utility by "consuming goods". In this class, we know people gain utility from flowers,  park visits, or grizzly bear sightings. I still use the word consume for these non-consumptive goods for conciseness. 
+
+
+\subsection{Utility function}
+A utility function measures the welfare we get from consuming goods (this use can be consumptive or non-consumptive). Utility functions can take different functional forms, a common one is cobb-douglas 
+$$U(x,y) = x^\alpha y^{1-\alpha}.$$
+\textbf{Our goal is to maximize utility subject to a constraint. }
+
+\subsection{Constraint}
+If we could, we'd consume infinite $x$ and infinite $y$. However, we typically have a "budget" of how much $x$ and how much $y$ we can consume. Let $B$ denote this budget, $w$ denote the price of $x$ and $v$ denote the price of y. The money we spend on $x$ and $y$ needs to be less than our budget,
+$$wx + vy \leq B.$$
+Because we want consume as much $x$ and $y$ as possible, this will become an equality rather than a less than or equal sign, 
+$$wx + vy = B.$$
+Note that we can rewrite our constraint as 
+\begin{align}
+    0 = B - wv + vy
+    \label{constraint}
+\end{align}
+
+\subsection{Constrained optimization of utility}
+Our goal is to maximize utility subject to our constraint. We will write down a \textbf{Lagrangian}, which will become the function we want to maximize. 
+
+\begin{align}
+    \mathscr{L} = U(x, y) + \lambda (B - wv + vy)
+    \label{lagrange}
+\end{align}
+
+Our Lagrangian is our utility function \textit{plus zero}, because $\lambda$ multiplied by equation \ref{constraint} is zero. So maximizing the Lagrangian is the same as maximizing our utility, but we're incorporating our constraint. \\
+
+We want to solve for the optimal level of $x^*$ and $y^*$ to maximize $U(x,y)$. \\
+
+We take the derivatives and set them equal to zero to find the maximum. We call this \textbf{first order conditions (FOC)}, which are also known as the \textbf{optimality conditions}\\
+
+FOCs:
+\begin{align}
+    \frac{\partial \mathscr{L}}{\partial x} =0 \label{foc_x}\\
+    \frac{\partial \mathscr{L}}{\partial y} =0 \label{foc_y}\\
+    \frac{\partial \mathscr{L}}{\partial \lambda} =0 \label{constraint_foc}
+\end{align}
+
+The FOCs gives us three equations (\ref{foc_x} - \ref{constraint_foc}) and three unknowns ($x$, $y$, $\lambda$). We can solve for the optimal $x$ and $y$. We can also solve for $\lambda$, which is the marginal utility of money in the Lagrangian case.
+
+
+\section{Lagrangian Hamiltonian combo}
+In the video, we considered someone wanted to find the optimal harvest across time periods. The "utility" we were wanted to maximize was a current value hamiltonian  
+
+$$U = H  = W(h_t, s_t) + \lambda_t (G(s_t)) - h_t. $$ 
+
+We wanted to maximize this across multiple time periods. Our constraint was how the stock changed between time periods $s_t - s_{t+1}$,
+
+$$\mathscr{L} = \sum_{t=0}^{T-1}(H + \beta \lambda_{t+1}(s_t - s_{t+1})) + \beta^T z(s+T)$$
+
+and $\beta^T z(s+T)$ is the value in the final time period. \\
+
+Note that in steady state, the stock level will be the same across time periods and so $s_t - s_{t+1} = 0$
+
+\section{Hamiltonian}
+Consider the intertemporal welfare of a stock aka the value function. \textbf{Our goal is to maximize the value function }
+
+$$V(s(t)) = \max_{h(t)} \int_0^{T-1} W(s(t), h(t))\exp(-\delta t) dt + Z(s(T)) \exp(-\delta T)$$
+subject to the growth of the stock 
+$$\dot s = G(S(t), h(t)) $$
+and our initial stock level
+$$S(0)$$
+In week four, we saw how a Hamiltonian helps us solve for the optimal choice of $h(t)$ to maximize the value function (ie maximize intertemporal welfare). \\
+
+The \textbf{present value Hamiltonian} is 
+
+$$\tilde{H} = W(\cdot)\exp(-\delta t) + \lambda(t) G(\cdot) $$
+
+The $\exp(-\delta t)$ is hard to work with, so lets work with a \textbf{current value Hamiltonian} instead
+
+\begin{align}
+    \delta V =H = W(\cdot)+ \mu(t) G(\cdot) 
+    \label{cvh}
+\end{align}
+
+where $W(\cdot)$ is our dividends and $\mu(t) G(\cdot) $ is our capital gains. \\
+
+Similar to how the \textit{Lagrangian had first order conditions} that helped us solve for the optimal choice of $x$ and $y$, the \textit{Hamiltonian has optimally conditions} that help us solve for the optimal value of our choice variable $h(t)$. \\
+
+The \textbf{optimality conditions} for a current value Hamiltonian is 
+\begin{enumerate}
+    \item Choice Variable 
+    \begin{align}
+        \frac{\partial H}{\partial h} & = 0\\
+        H_h &= 0 \\
+         W_h - \mu_t h(t)& = 0 \\
+        \implies \mu_t & = \frac{W_h(s,h)}{h(t)}
+        \label{oc_choice}
+    \end{align}
+
+    \item Stock Variable/State Variable 
+    
+    \begin{align}
+        \frac{\partial H}{\partial s} & = - \dot \mu + \delta \mu_t \\
+        H_s & = - \dot \mu + \delta \mu_t \\
+        W_s + \mu_t G_s & = - \dot \mu + \delta \mu_t
+        \label{oc_state}
+    \end{align}
+    Note, we can solve for $\dot \mu$
+    \begin{align}
+        \dot \mu &= \delta \mu - H_s \\
+        &= \delta \mu - W_s - G_s
+    \end{align}
+    
+
+    \item Costate/adjoint variable (returns the constraint)
+    \begin{align}
+        \frac{\partial H}{\partial \mu} &= \dot s_t \\
+        &= G(s) - h(t)
+        \label{oc_costate}
+    \end{align}
+
+    \item Transversality condition (Do not worry about this, just putting it here in case your refer to these notes in the future)
+    \begin{align}
+        \lim_t \exp(-\delta t) \mu_t s_t = 0
+        \label{oc_trans}
+    \end{align}
+
+\end{enumerate}
+
+\textbf{Recall that our goal is to find the optimal choice of $h(t)$} that maximizes our current value Hamiltonian, which will be the sequence of harvest levels $h(t)$ that maximizes the intertemporal value function (ie intertemporal welfare). In the Lagrangian case, the FOCs gave us three equations for three unknowns so that we can solve algebraically\footnote{Algebraically means you can solve something "with pen and paper" aka you can do some calc and algebra and get the answer. We sometimes call this a \textit{closed form solution}.} for the optimal consumption levels of $x$ and $y$ and then also solve for the shadow/capital price $\lambda$. \\
+
+\textbf{We may need to solve for $h(t)$ numerically} in the Hamiltonian case. Sometimes, you'll look at your optimality conditions and see that you can solve for the optimal $h(t)$ algebraically. However, typically you won't be able to, in which case you'll solve for the optimal sequence of $h(t)$ numerically. Numerically means there is not a closed form solution \textit{i.e.,} we can't solve for the optimal choice of $h(t)$ using algebra (like we cab for $x$ and $y$ in the Lagrangian case). We need to use a computer algorithm to find the sequence of optimal $h(t)$. We will use solver in Excel in problem set three to achieve this. You can also use the optim() function in R if you're very brave.\\
+
+\textbf{Rearranging the optimality conditions can give us other important equations} for understanding how our system of interest behaves, despite not always being able to solve for the optimal sequence of the choice variable $h(t)$ algebraically.  We can solve for the capital/shadow price, discount rate and impose certain conditions such as a no arbitrage condition.\\
+
+
+\textbf{The Euler Equation} gives us the capital price/shadow price by rearranging the stock/state optimality condition \ref{oc_state} and solving for $\mu_t$
+\begin{align}
+    \mu_t = \frac{W_s + \dot \mu}{\delta - G_s}. 
+    \label{euler}
+\end{align}
+This is Eli's favorite equation in the whole world. We saw it in the Nature as Capital notes when we were solving for the capital/shadow price. \\
+
+\textbf{The No Arbitrage Condition} comes from stock/state condition \ref{oc_state} and costate/adjoint condition \ref{oc_costate}. \textit{The concept behind the no arbitrage condition} is that it guarantees that you cannot buy a unit of the stock and then sell it in the same time period for profit.\footnote{Radiolab had a good podcast talking about arbitrage at a pizza parlor if you're confused about the concept. This podcast it how it finally clicked for me \url{https://radiolab.org/episodes/gigaverse}}\\
+
+\textbf{An equation for the Discount Rate} comes from rearranging the Euler Equation \ref{euler}
+\begin{align}
+    \delta = \frac{\dot \mu}{\mu_t} + \frac{W_s}{\mu_t} + G_s.
+    \label{dr}
+\end{align}
+This equation shows us that the discount rate is a function of the capital/shadow price. Recall that $\mu_t$ varies as the stock level changes through time (\textit{i.e.,} if fish are plentiful, their capital price is low. If fish are scarce, their capital price is high). This means that the discount rate will change with the capital/shadow price, which changes with the stock level. \textit{The concept behind \ref{dr}} is that the discount rate changes with the capital/shadow price and the capital/shadow price changes as the stock of capital changes. Therefore, the discount rate should consider the stock of natural capital. As natural capital becomes scares, the shadow/capital price $\mu_t$ will increase. $\mu_t$ is in the denominator, so as it gets bigger $\delta$ will becomes smaller and we discount the future less. 
+
+\end{document}
+

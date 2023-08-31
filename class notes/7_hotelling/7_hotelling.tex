@@ -1,0 +1,313 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=2.5cm]{geometry} % Set Margins
+
+%% Math and math fonts
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{bbm} % for \mathbbm{1}
+
+% date
+\usepackage[nodayofweek]{datetime}
+
+% Color
+\usepackage{color, xcolor}
+
+% Misc
+\usepackage{environ}  % \collect@body in asmmath
+\usepackage{graphicx} % \includegraphics options
+\usepackage{mdframed} % text boxes
+\usepackage{indentfirst} % Indent first paragraph after section header
+\usepackage[shortlabels]{enumitem} % Control enumerate items with [(a)]
+\usepackage{comment} % Comments
+\usepackage{fancyhdr} % Headers and footers
+
+% Tables
+\usepackage{array}
+
+% Sub-figures and figure placement
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} 
+
+% Graphing
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+% Title Placement
+\usepackage{titling}
+\setlength{\droptitle}{-6em}
+
+%set indent to 
+\setlength{\parindent}{0pt}
+
+%for headers 
+\pagestyle{fancy}
+
+\lhead{Creel}
+\chead{Non-Renewables}
+\rhead{Nature as Capital}
+
+\title{Week Ten -- Hotelling and Non-Renewables}
+\author{Andie Creel}
+
+% Hyper refs
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor  = blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor = blue,
+    anchorcolor = blue
+}
+
+% % Citation management
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authordate,open={(},close={)}}
+
+\begin{document}
+\maketitle
+
+\section{Notes from Video}
+Consider a non-renewable resource. The initial stock of that resource is $R_0$. In every time period, we harvest $q_t$ of that resource. The constraint of our problem will be 
+\begin{align}
+    R_0 - \sum_{t=0}^{T-1}q_t \geq 0
+\end{align}
+because you cannot harvest more of a non-renewable resource than what you have. Our choice variable is $q_t$. \\
+
+We can now set up a Lagrangian where the objective is to maximize utility through our choice of extraction $U(q_t)$ subject to our constraint:
+\begin{align}
+    \mathcal{L} = \sum_{t=0}^{T-1} \beta^t U(q_t) + \mu (R_0 - \sum_{t=0}^{T-1} q_t)
+\end{align}
+
+We can then take our first-order conditions. Note that utility is only a function of one variable, so we only have two FOCs: 
+\begin{align}
+    \frac{\partial \mathcal{L}}{ \partial q_t} &= \beta^t U'(q_t) - \mu = 0 \label{FOC_1}\\
+    \frac{\partial \mathcal{L}}{ \partial \mu} &= R_0 - \sum_{t=0}^{T-1} q_t= 0
+\end{align}
+
+Consider \ref{FOC_1} $\implies \beta^t U'(q_t) = \mu$. Plug in $t= 0,1,2$ and rewrite this FOC three times. They're all equal to $\mu$:
+\begin{align}
+    U'(q_0) = \mu \label{mu}\\
+    \beta U'(q_1) = \mu \\
+    \beta^2U'(q_2) = \mu
+\end{align}
+
+Now recall that our discount factor can be written $\beta = \frac{1}{1 + \delta}$. \\
+
+Plugging \ref{mu} and equation for the discount factor into \ref{FOC_1} we get
+\begin{align}
+    \frac{1}{(1 + \delta)^t} U'(q_t) = U'(q_0)\\
+    \implies U'(q_t) = (1+ \delta)^t U'(q_0) \label{marg_ut}
+\end{align}
+
+Now, let's assume that the utility function measures value. We know that marginal value is the definition of price. So we can plug in 
+\begin{align}
+     \frac{dU}{dq_t} = U'(q_t) = p_t
+\end{align}
+into \ref{marg_ut} to get 
+\begin{align}
+    p_t = (1+ \delta)^t p_0 \label{hotelling}
+\end{align}
+
+ \ref{hotelling} is the primary result of Hotelling Rule. It says that the price of a non-renewable resource should rise at the rate of interest.\\
+
+We can make this even more concrete by considering time period $t=1$:
+\begin{align}
+    p_1 = (1+ \delta) p_0\\
+    p_1 = p_0 + \delta p_0\\
+    \delta = \frac{p_1 - p_0}{p_0}\\
+    \implies \delta = \frac{\Delta p}{p} \approx \frac{\dot p}{p}
+\end{align}
+which is how Hotelling wrote the result. This says the percent change in capital's price equals the discount rate.  
+
+\subsection{A more complicated model}
+Consider a manager who wants to maximize profit: 
+\begin{align}
+    \pi = p_t q_t - C(q_t, R_t)\\
+\end{align}
+
+where $R_t$ is the amount of resource available in time period $t$. The constraint is 
+\begin{align}
+    R_{t+1} = R_t - q_t
+\end{align}
+
+The Lagrangian is: 
+\begin{align}
+    \mathcal{L} = \sum_{t = 0}^T \beta^T [p_t q_t - C(q_t, R_t) + \beta \lambda_{t+1}(R_t - q_t - R_{t+1})]
+\end{align}
+
+FOCs (subscripts indicate a derivative with respect to the subscripted variable):
+\begin{align}
+    \frac{\partial \mathcal{L}}{ \partial q_t} = (p_t - C_q) - \beta \lambda_{t+1} = 0 \label{comp_FOC_1}\\
+    \frac{\partial \mathcal{L}}{\partial R_t} = -C_R + \beta \lambda_{t+1}  + \beta^{t-1}(-\beta\lambda_t)= 0 \label{comp_FOC_2}\\
+    \frac{\partial \mathcal{L}}{\partial \lambda_{t+1}} = R_t - q_t - R_{t+1} =0
+\end{align}
+
+Again, recall the equation for the discount factor $\frac{1}{1+\delta} = \beta$. Plug this into \ref{comp_FOC_1} to get 
+\begin{align}
+    (1+\delta) (p_t - C_q) = \lambda_{t+1} \label{hot_1.5}\\
+    \implies \lambda_t = (1+\delta)(p_{t-1} - C_q) \label{hot_1}
+\end{align}
+
+Now, take as given that \ref{comp_FOC_2} simplifies to 
+\begin{align}
+    \beta \lambda_{t+1} - \lambda_t = C_R \label{hot_2}
+\end{align}
+
+Now we can combine \ref{hot_1}, \ref{hot_1.5} and \ref{hot_2} to get
+\begin{align}
+    \frac{1}{1+\delta}\lambda_{t+1} - (1+ \delta)\lambda_t = C_R \\
+    \frac{1}{1+\delta}(1+\delta)(p_t-C_q) - (1+ \delta)(p_{t-1} - C_q) = C_R
+\end{align}
+
+With algebra, this simplifies to 
+\begin{align}
+    \frac{(p_t - C_q) - (p_{t-1} - C_q)}{(p_{t-1} - C_q)} = \delta + \frac{C_R}{(p_{t-1} - C_q}\\
+    \frac{\dot p}{p} - \frac{C_R}{p_{t-1} - C_q} = \delta
+\end{align}
+where $(p_t - C_q)$ is the resource rent. This is the hotelling rule, our rule of investment. Prices must now rise \textit{faster} than the interest rate because of the cost savings term (which says it's cheaper to harvest when there is more stock). At some point, it will be too expensive to extract a resource even when there is some left (leaving oil in the ground).\\
+
+Hotelling developed this in the 1930s prior to a lot of this math being available so his original paper is nearly impossible to interpret. 
+
+\section{Hotelling Model}
+
+\subsection{Costless Extraction}
+
+The main result  is that price rises with the rate of interest. Thinking of oil or resources that don't renew. This would be the price of a resource when the extraction is free,
+\begin{align}
+    p_t &= (1 + \delta) ^t p_0\\
+    \frac{1}{t} \ln(\frac{p_t}{p_0}) &= ln(1 +\delta)
+\end{align}
+
+you can to the second equation from the first using log rules. \\
+
+Consider a linear demand curve of an extracted resource
+\begin{align}
+    p_t = a + b q_t \label{demand}
+\end{align}
+where $b < 0$ to have downward sloping demand. $a$ marks the choke price, where that price or any price above it will lead to no quantity demanded. \\
+
+Anecdote on phosphorous: Everyone was freaking out that we were running out of phosphorous. The price was going up. Cathy Kling's quote: "I've spent my whole career studying when markets get something wrong. Don't get mad the one time they get something right". This is a note on the law of demand, the price goes up as a resource becomes scarce. \\
+
+Consider time period T. This is the time period where we run out of stock ($q_T = 0$)
+
+\begin{align}
+    p_t = a - bq_t\\
+    p_T = a \label{choke price}\\ 
+    p_t = a(1-\delta)^{(t-T)} \label{price_rule}
+\end{align}
+
+\ref{choke price} $p_T = a$ is true because the quantity demanded is zero at the choke price ($q_T = 0$). \\
+
+
+Set \ref{demand} equal to \ref{price_rule} because both are equal to $p_t$ and solve for $q_t$
+
+\begin{align}
+    a(1-\delta)^{t-T} &= a + b q_t\\
+    \frac{a}{b} (1 - (1+\delta)^{t-T}) &= q_t \label{quant_rule}\\
+\end{align}
+
+We can now write a rule for extraction where $R_0$ is the amount of the resource in time period 0,
+\begin{align}
+    R_0 - \sum_{t=0}^{T-1}q_t &= 0.
+\end{align}
+
+\textbf{Social Planner:}
+
+Consider consumer surplus where $V(y)$ denotes consumer surplus of the resource,
+\begin{align}
+    V(y) = \max_q \int_0^q (a - by) dy \implies aq - \frac{1}{2}bq^2 \label{soc_plan}
+\end{align}
+
+Recall that marginal value equals price ($\frac{dV}{dy} = p$)
+\begin{align}
+    \frac{dV}{dy} = a- bq\\
+    p = a -bq \label{comp_demand} 
+\end{align}
+
+The social planner wants to maximize the area under the demand curve, \textit{i.e.,} consumer surplus which is \ref{soc_plan}. When you take the derivative of the area under the demand curve, you get the demand curve \ref{comp_demand}. In contrast, the monopolist wants to maximize price * quantity (profit) instead of consumer surplus. \\
+
+\textbf{Monopolist:}
+
+Consider a monopolist's value of the resource
+
+\begin{align}
+    V(q) &= \max_q p*q \\
+    &= \max_q (a -bq)q\\
+    &= \max_q aq - bq^2\\
+    \frac{dV}{dq} = p &= a - 2bq \label{monop_demand}
+\end{align}
+
+Notice that the monopoly's marginal revenue curve \ref{monop_demand} is twice as steep as the competitive demand \ref{comp_demand}. Therefore the monopolist extracts less, and that's why monopolists are referred to as the  conservationist's friend. However, the monopolist gets to enjoy the surplus of the resource. Therefore, some environmentalists argue for letting a monopoly own the resource but tax their profits in order to reach a conservation goal and gain tax revenue for the public. \\
+
+
+\textbf{A note on exponentials and substitutes:}
+
+Why are exponential so great? An exponential function is a function whose derivative is equal to itself, 
+\begin{align}
+    \frac{d e^x}{dx} = e^x.
+\end{align}
+Therefore, the integral is equal to itself as well. Therefore with constant marginal elasticity of substitution, the monopolist and the competitive demand will be the same. The monopoly's marginal revenue will equal the social planner's demand, but this requires there to be good substitutes which is what leads to constant marginal elasticity of substitution. This case of constant marginal elasticity of substitution applies when demand is written as 
+\begin{align}
+    p_t = a q_t^{-b}.
+\end{align}
+This depends entirely on substitution and how good of substitutes exist. 
+
+\subsection{Innovation}
+
+Environmental economists tend to neglect human innovation. The issue with Hotelling is that it leaves out innovation. Human capital and produced capital may interact with natural capital and how we extract it. We need to think about this a lot more in the environmental justice arena. \\
+
+A stone-cold argument for environmental justice would be that we're under-investing in human capital, and we need more human capital to achieve our sustainable development goals.  \\
+
+Paul Romer talked about how when you discover new knowledge it's very difficult to keep it to yourself, it becomes public and non-rival. It's hard to contain. \\
+
+How does innovation shape resource extraction? What if the rents earned from extraction are reinvested (fossil fuel companies funding public schools, \textit{i.e.} Wyoming's entire state government)? \\
+
+Cost savings term:
+$C_R>0$ is the marginal benefit of more resources. $C_q>0$ is the marginal cost of extracting more resources.
+\begin{align}
+    \delta = \frac{\dot p}{p} - \frac{C_R}{p_{t-1} - C_q}
+\end{align}
+$C_R$ needs to be negative so that prices rise slower. 
+
+\begin{align}
+    A &= \frac{C_R}{p_{t-1} - C_q}\\
+    \delta &= \frac{\dot p }{p} - A\\
+    (\delta + A)p &= \dot p
+\end{align}
+
+Why would innovation help conservation? Examples: Innovation in financing conservation. Innovation between engineering wetlands and seawalls. \\
+
+Returning to Romer's quote: he was thinking about innovations. In the \textbf{Romer Model} we consider production 
+
+\begin{align}
+    Q = \alpha x^\gamma y^\eta
+\end{align}
+
+where $Q$ is production, $\alpha$ is a productivity term. $\gamma$ and $\eta$ are elasticities of $x$ and $y$. 
+
+A change in $\alpha$ is a function of investment 
+\begin{align}
+    \dot \alpha = f(I)
+\end{align}
+
+Additionally, 
+\begin{align}
+    Consumption &= Production - Innovation \\
+    C &= Q - I
+\end{align}
+
+We can measure total factor productivity (multi-factor productivity) with $\alpha$. This equation for production is nice because we can linearize it with logs 
+
+\begin{align}
+    \ln(Q) = \ln(\alpha) + \gamma \ln(x) + \eta \ln(y).
+\end{align}
+
+This has been in Cobb-Douglas form.  But all innovation is really about creating new substitutes. So Eli has a paper where they used an elasticity of substitution model where they invest in creating more substitutes. What they found is with enough innovation you can always create substitutes. However, you can run out of renewable resources if you innovate faster than it renews. The model collapses to a Cobb-Douglass model in the limit. 
+
+
+\end{document}
