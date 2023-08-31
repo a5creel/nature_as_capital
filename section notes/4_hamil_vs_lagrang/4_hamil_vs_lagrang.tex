@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mathrsfs}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+\usepackage{caption}
+
+\setlength{\parindent}{0pt}
+
+
+%for headers 
+\pagestyle{fancy}
+%\fancyhf{} % for header/footer
+
+\lhead{Creel}
+\rhead{ENV 795 - Nature as Capital}
+\chead{\textbf{Solving Optimal Allocation}}
+
+\title{Section Four - Solving Optimal Allocation Problems}
+\author{Andie Creel for Nature as Capital}
+\date{February 27th, 2023}
+
+\begin{document}
+\maketitle
+
+\section{What is an optimal allocation problem?}
+An optimal allocation problem consists of an objective function that we are (typically) trying to maximize. We maximize by choosing the "optimal allocation" of our choice variable. When we plug the "optimal" values of our choice variables into our objective function, it will equal the highest value possible and we will have achieved the objective of maximizing it. 
+
+\section{Maximize a Utility Function (Lagrangian Case)}
+Consider the case where you want to maximize a utility function subject to a budget constraint. \\
+
+\textbf{Objective function:} 
+\begin{align}
+    \max_{(x,y)} U(x,y)
+\end{align}
+subject to our budget constraint 
+
+\begin{align}
+    B = wx + vy 
+\end{align}
+where $B$ is our total budget available to spend on goods $x$ and $y$, $w$ is the price of $x$ and $v$ is the price of y.\\ 
+
+\textbf{Solution form}: A function for $x^*(w,v,B, \beta)$ and $y^*(w,v,B, \beta)$ as a function of our knowns, w, v, and B. These values for $x$ and $y$ maximize the utility function, $(x^*, y^*)$.\\
+ 
+\textbf{Tool:} When maximizing a utility function subject to a budget constraint, we use a \textbf{Lagrangian and its optimality conditions} to find the solution to the objective function. Let's assume the utility function is a Cobb-Douglas utility function, $U(x,y) = x^\beta y ^{1-\beta}$.  
+\begin{align}
+    \mathscr{L} = x^\beta y ^{1-\beta} + \lambda (B - wx - vy) 
+\end{align}
+
+\textbf{Optimality Conditions (First Order Conditions aka FOCs)}
+\begin{align}
+    \frac{\partial \mathscr{L}}{\partial x}  &=  \beta x ^{\beta - 1} y^{1-\beta} -\lambda w = 0\\
+    \frac{\partial \mathscr{L}}{\partial y} &= (1 - \beta) x ^\beta y^{-\beta} - \lambda v=  0\\
+    \frac{\partial \mathscr{L}}{\partial \lambda} &= B - wx - vy = 0
+\end{align}
+
+we now have three equations and three unknowns $x^*, y^*, \lambda$. We can solve for $(x^*, y^*)$ as a function of $w,v,B, \beta$, which is our \textit{optimal allocation} of $x$ and $y$ that maximizes utility. We could also solve for $\lambda(w,v,B, \beta)$. \\
+
+\textbf{Interpreting $\lambda$}: The marginal value of one more unit of budget (aka marginal utility of money). 
+
+\section{Maximizing Intertemporal Welfare (Hamiltonian)}
+NOTE: More details on the optimality conditions are in the week five class notes. Details on how to go from the intertemporal welfare function to a Hamiltonian are in the week four class notes.\\
+
+Consider the case where you want to maximize the intertemporal welfare function (refer to week 5 of class notes for review of well-being/welfare/wealth/intertemporal welfare function). \textit{I.e.,} we are maximizing the sum of the welfare we get from a stock in every time period. The intertemporal welfare function is the right hand side of the following equation, the value function is $V(s(t))$. \\
+
+\textbf{Objective function:}
+\begin{align}
+    V(s(t)) = \max_{h(t)} \int_0^{T-1} W(s(t), h(t))\exp(-\delta t) dt + Z(s(T)) \exp(-\delta T)
+\end{align}
+subject to the growth of the stock and the initial stock level 
+\begin{align}
+    \dot s = G(s(t), h(t))\\
+    s(0).
+\end{align}
+
+\textbf{Solution form:} A value for $h^*(t)$ for every $ t \in \{0, 1, ..., T\}$. In the Lagrangian case, we solve for one optimal value of $x^*$ and one optimal value for $y^*$. In this case, our solution will be a vector $h^*(t)$ values that is $T+1$ long (one for every time period, which includes the 0 time period which is why there are $T+1$ values instead of just $T$).\\
+
+\textbf{Tool}: When maximizing intertemporal welfare (\textit{i.e.,} the value we get from a stock from now until time period $T$) subject to the initial value of that stock and how it grows through time, we use a \textbf{\underline{current value} Hamiltonian and its optimality conditions} to find the solution to the objective function. \\
+
+\begin{align}
+    H &= W(s(t), h(t))+ \mu(t) G(s(t), h(t)) \\
+    H &= dividends + capital\ gains
+\end{align}
+
+\textbf{Optimality Conditions (these are different than the Lagrangian's):}
+\begin{enumerate}
+    \item Choice Variable 
+    \begin{align}
+        \frac{\partial H}{\partial h} & = 0
+    \end{align}
+
+    \item Stock Variable/State Variable 
+    
+    \begin{align}
+        \frac{\partial H}{\partial s} & = - \dot \mu + \delta \mu_t 
+    \end{align}
+
+    \item Costate/adjoint variable (returns the constraint)
+    \begin{align}
+        \frac{\partial H}{\partial \mu} &= \dot s_t 
+    \end{align}
+
+    \item Transversality condition (Do not worry about this, just putting it here in case your refer to these notes in the future)
+    \begin{align}
+        \lim_t \exp(-\delta t) \mu_t s_t = 0
+        \label{oc_trans}
+    \end{align}
+
+\end{enumerate}
+
+We may need to solve for all of the $h(t)$ numerically in the Hamiltonian case. Sometimes, you'll look at your optimality conditions and see that you can solve for the optimal $h(t)$ algebraically. However, typically you won't be able to, in which case you'll solve for the optimal sequence of $h(t)$ numerically. Numerically means there is not a closed form solution \textit{i.e.,} we can't solve for the optimal choice of $h(t)$ using algebra (like we cab for $x$ and $y$ in the Lagrangian case). We need to use a computer algorithm to find the sequence of optimal $h(t)$. We will use solver in Excel in problem set three to achieve this. You can also use the optim() function in R if you're very brave.\\
+
+\textbf{Interpreting $\mu(t)$}: The shadow/capital price of the stock in time period $t$. 
+
+
+
+\end{document}

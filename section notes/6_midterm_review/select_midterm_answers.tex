@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=2.5cm]{geometry} % Set Margins
+
+%% Math and math fonts
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{bbm} % for \mathbbm{1}
+
+% date
+\usepackage[nodayofweek]{datetime}
+
+% Color
+\usepackage{color, xcolor}
+
+% Misc
+\usepackage{environ}  % \collect@body in asmmath
+\usepackage{graphicx} % \includegraphics options
+\usepackage{mdframed} % text boxes
+\usepackage{indentfirst} % Indent first paragraph after section header
+\usepackage[shortlabels]{enumitem} % Control enumerate items with [(a)]
+\usepackage{comment} % Comments
+\usepackage{fancyhdr} % Headers and footers
+
+% Tables
+\usepackage{array}
+
+% Sub-figures and figure placement
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} 
+
+% Graphing
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+% Title Placement
+\usepackage{titling}
+\setlength{\droptitle}{-6em}
+
+%set indent to 
+\setlength{\parindent}{0pt}
+
+%for headers 
+\pagestyle{fancy}
+
+\lhead{Creel}
+\chead{Midterm answers}
+\rhead{Nature as Capital}
+
+\title{Reviewing What People Missed}
+\author{Andie Creel}
+
+% Hyper refs
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor  = blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor = blue,
+    anchorcolor = blue
+}
+
+% % Citation management
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authordate,open={(},close={)}}
+
+\begin{document}
+\maketitle
+
+\textbf{Shadow price:} The shadow price value equals the value of an additional unit of the constraint (\textit{ie} budget or stock). 
+\begin{align}
+    \frac{\partial \mathcal{L}}{\partial B} = \lambda
+\end{align}
+
+
+\textbf{Number of Choice Variables:} If you are going to consume the entirety of a resource in three time periods, that means you only have 2 choice variables. You can choose how much to consume in time period one, time period two, and then those \textit{two} choices will determine what you consume in time period three. This is important to be clear about in policy contexts, because if a policymaker thinks they have a third choice that proves that they are not thinking clearly about how the resource is being exhausted. \\
+
+\textbf{Tradeable Permits and Tax:} If a quota is set optimally and a tax is set optimally, then you will arrive at the same equilibrium set of prices and quantity. 
+
+\section{Conrad 3.4}
+\begin{align}
+    \mathcal{L} = \sum_0^\infty [\rho^t ln(Y_t) + \rho^{t+1} \lambda_{t+1} [X_t + r X_t(1-X_t/K)^\beta - Y_t - X_{t+1}]]
+\end{align}
+
+FOCs:
+\begin{align}
+    \frac{\partial \mathcal{L}}{\partial Y} = \frac{1}{Y_t}- \rho \lambda_{t+1} = 0\\
+    \frac{\partial \mathcal{L}}{\partial X} = \rho^{t+1}\lambda_{t+1}[1+ G'(X_t)] + \rho^t \lambda_t(-1) = 0 \label{foc_2}\\
+    \frac{\partial \mathcal{L}}{\partial \rho^{t+1}\lambda_{t+1}} = X_t + r X_t(1-X_t/K)^\beta - Y_t - X_{t+1} = 0 
+\end{align}
+
+When $r = 1, K = 1, \beta = 1/2$, then  
+\begin{align}
+    G(X) = X(1-X)^{1/2}\\
+    G'(X) = (1-X)^{1/2} + X [-\frac{1}{2}(1 - X)^{-1/2}] \label{g_prime}
+\end{align}
+
+So you can plug \ref{g_prime} into \ref{foc_2} and you have your three FOCs. 
+
+\end{document}
+
+
+\end{document}

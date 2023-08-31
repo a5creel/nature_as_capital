@@ -1,0 +1,180 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=2.5cm]{geometry} % Set Margins
+
+%% Math and math fonts
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{bbm} % for \mathbbm{1}
+
+% date
+\usepackage[nodayofweek]{datetime}
+
+% Color
+\usepackage{color, xcolor}
+
+% Misc
+\usepackage{environ}  % \collect@body in asmmath
+\usepackage{graphicx} % \includegraphics options
+\usepackage{mdframed} % text boxes
+\usepackage{indentfirst} % Indent first paragraph after section header
+\usepackage[shortlabels]{enumitem} % Control enumerate items with [(a)]
+\usepackage{comment} % Comments
+\usepackage{fancyhdr} % Headers and footers
+
+% Tables
+\usepackage{array}
+
+% Sub-figures and figure placement
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} 
+
+% Graphing
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+% Title Placement
+\usepackage{titling}
+\setlength{\droptitle}{-6em}
+
+%set indent to 
+\setlength{\parindent}{0pt}
+
+%for headers 
+\pagestyle{fancy}
+
+\lhead{Creel}
+\chead{Section Seven}
+\rhead{Nature as Capital}
+
+\title{Section Seven -- Multi-Year Lagrangians and the Final Function}
+\author{Andie Creel}
+
+% Hyper refs
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor  = blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor = blue,
+    anchorcolor = blue
+}
+
+% % Citation management
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authordate,open={(},close={)}}
+
+\begin{document}
+\maketitle
+
+\section{Multi-Year Lagrangians}
+
+Up to this point, we've said that Hamiltonians are used in the case of multi-year problems, and Lagrangians are used when we're only considering one time period. This was somewhat reductionist because you are able to go back and forth between the two. On problem set four, we will solve Lagrangians for multiple time periods. \\
+
+Example (Exercise 3.1 in Conrad with tweaks): Consider a fishery manager who wants to maximize the profit from harvesting fish over multiple time periods. 
+
+\subsection{Implicit formulas}
+
+Denote the stock value $V(\tilde X)$ as equal to the discount sum of profit in every time period, $\pi_t$, where $\tilde X$ is the fishery. So $V(\tilde X)$ is the value of the \textit{whole fishery existing}, which is different than the stock level $X_t$ which changes over time. \\
+
+The manager's objective is 
+\begin{align}
+    V(\tilde X) = \max_{\{Y_t\}}\sum_{t=0}^\infty \rho^t \pi_t(X_t, Y_t)
+\end{align}
+subject to the difference equation 
+\begin{align}
+    X_{t+1} - X_{t} = G(X_t) - Y_t\\
+    X_0 > 0 \ given
+\end{align}
+
+where $\rho^t$ is the discount factor and $G(X_t)$ is how the stock would grow without a harvest (ecological model). In discrete time, this is typically $\rho^t = (\frac{1}{1 - \delta})^t$ where $\delta$ is the discount rate. \\
+
+We can rewrite the constraint as 
+\begin{align}
+    0 = X_t +G(X_t) - Y_t - X_{t+1}
+\end{align}
+and then write the Lagrangian to turn this into a constrained optimization problem, 
+\begin{align}
+    \mathcal{L} = \sum_{t=0}^\infty \rho^t \Big\{ \pi_t(X_t, Y_t) - \rho \lambda_{t+1} [X_t +G(X_t) - Y_t - X_{t+1}] \Big\}.
+\end{align}
+
+Notice that with the discount factors, the Lagrangian is in \textbf{present} value, and if we distribute the $\rho^t$ through, $(\rho^{t+1} \lambda_{t+1})$ would be the present value shadow price (marginal value of relaxing the constraint, which in this case is the stock of fish, $X_t$). \\
+
+Our first order conditions are: 
+\begin{align}
+    \frac{\partial \mathcal{L}}{\partial X_t} = \rho^t \Big[\frac{\partial \pi_t}{\partial X_t} - \rho \lambda_{t+1}(1 + \frac{\partial G(X_t)}{\partial X_t}) \Big] &= 0 \\
+    \frac{\partial \mathcal{L}}{\partial Y_t} = \rho^t \Big[\frac{\partial \pi_t}{\partial Y_t} + \rho \lambda_{t+1} \Big] &= 0 \\
+    \frac{\partial \mathcal{L}}{\partial \rho \lambda_{t+1}} = - \rho^t [X_t +G(X_t) - Y_t - X_{t+1}] &= 0
+\end{align}
+
+but notice that because all of these are set equal to 0, the discount factor drops out (multiplying it to the other side is still 0) so the FOCs simplify to 
+
+\begin{align}
+    \frac{\partial \mathcal{L}}{\partial X_t} = \frac{\partial \pi_t}{\partial X_t} - \rho \lambda_{t+1}(1 + \frac{\partial G(X_t)}{\partial X_t})  &= 0, \\
+    \frac{\partial \mathcal{L}}{\partial Y_t} = \frac{\partial \pi_t}{\partial Y_t} + \rho \lambda_{t+1}  &= 0, \\
+    \frac{\partial \mathcal{L}}{\partial \rho \lambda_{t+1}} = X_t +G(X_t) - Y_t - X_{t+1} &= 0.
+\end{align}
+
+At this point, I would simply rename $\rho \lambda_{t+1} = \mu_t$ to simplify the notation. So once again, our FOCs can be rewritten, 
+
+
+\begin{align}
+    \frac{\partial \mathcal{L}}{\partial X_t} = \frac{\partial \pi_t}{\partial X_t} - \mu_t(1 + \frac{\partial G(X_t)}{\partial X_t})  &= 0,  \label{FOC_1}\\
+    \frac{\partial \mathcal{L}}{\partial Y_t} = \frac{\partial \pi_t}{\partial Y_t} + \mu_t  &= 0, \label{FOC_2} \\
+    \frac{\partial \mathcal{L}}{\partial \mu_t} = X_t +G(X_t) - Y_t - X_{t+1} &= 0 \label{FOC_constraint}.
+\end{align}
+
+We can solve \ref{FOC_1} and \ref{FOC_2} for $\mu_t$ and set those equations equation to one another then solve for $Y_t$ as a function of $X_t$, $Y_t = f(X_t)$. \ref{FOC_constraint} is the constraint. \\
+
+\subsection{Explicit formulas}
+Now let's consider the same problem with explicit formulas,\\
+Revenue: $p Y_t$\\
+Cost (harder to find fish after you've caught many $Y_t^2$, but easier if there are a lot of them, $1/X_t$): $\frac{c}{2} \frac{Y_t^2}{X_t}$\\
+Growth: $G(X_t) = rX_t (1 - \frac{X_t}{K})$
+
+Plugging these in, the profit equation and Lagrangian becomes 
+\begin{align}
+    \pi_t = p Y_t - \frac{c}{2} \frac{Y_t^2}{X_t}\\
+    \mathcal{L} =  \sum_{t=0}^\infty \rho^t \Big\{ p Y_t - \frac{c}{2} \frac{Y_t^2}{X_t} - \rho \lambda_{t+1} [X_t +rX_t (1 - \frac{X_t}{K}) - Y_t - X_{t+1}] \Big\}
+\end{align}
+
+To get our FOCs, we can solve for $\frac{\partial \pi_t}{\partial X_t}$ and $\frac{\partial \pi_t}{\partial Y_t}$ and $\frac{\partial G(X_t)}{\partial X_t}$ and plug them in, 
+
+\begin{align}
+    \frac{\partial \pi_t}{\partial X_t} = \frac{c}{2} \frac{Y_t^2}{X_t^2}\\
+    \frac{\partial \pi_t}{\partial Y_t} = p - c \frac{Y_t}{X_t}\\
+    \frac{\partial G(X_t)}{\partial X_t} = r - \frac{2rX_t}{K}
+\end{align}
+
+so our FOCs are 
+\begin{align}
+    \frac{\partial \mathcal{L}}{\partial X_t} = \frac{c}{2} \frac{Y_t^2}{X_t^2} - \mu_t(1 + r - \frac{1}{2}\frac{X_t}{K})  &= 0,  \label{FOC_1_i}\\
+    \frac{\partial \mathcal{L}}{\partial Y_t} = p - c \frac{Y_t}{X_t} + \mu_t  &= 0, \label{FOC_2_i} \\
+    \frac{\partial \mathcal{L}}{\partial \mu_t} = X_t +rX_t (1 - \frac{X_t}{K}) - Y_t - X_{t+1} &= 0 \label{FOC_constraint_i}.
+\end{align}
+
+when you solve for $\mu_t$ in \ref{FOC_1_i} and \ref{FOC_2_i} and solve for $Y_t$ you get a long term that you can find in the Conrad exercise. This is the form we typically need for excel problems. 
+
+
+\section{Final Function}
+The final function is the optimal choice for the choice variable once you're in a steady state. This is the choice made for every time period from now on. This can be found by setting either $\dot X = 0$ or when $X_{t+1} = X_t$, depending on if you're working in continuous or discrete time. Both of these indicate we're in a steady state because they imply the population is no longer changing through time (which is all that a steady state is). \\
+
+Continuing with the example above, we would use \ref{FOC_constraint_i} to get the final function and we would set $X_{t+1} = X_t$, which would lead to 
+
+\begin{align}
+    rX_T (1 - \frac{X_T}{K}) - Y_T = 0 \\
+    \implies Y_T = rX_T (1 - \frac{X_T}{K}) \label{final}.
+\end{align}
+
+\ref{final} would be the final function for optimal harvest in the steady state. This final function usually uses $T$ notation.
+
+
+
+
+% rX_t(1 - \frac{X_t}{K})
+
+\end{document}

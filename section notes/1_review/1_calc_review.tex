@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+\usepackage{caption}
+
+\setlength{\parindent}{0pt}
+
+
+%for headers 
+\pagestyle{fancy}
+\fancyhf{} % for header/footer
+
+\lhead{Creel}
+\rhead{ENV 795 - Nature as Capital}
+\chead{\textbf{Calculus Review}}
+
+\title{Calculus Review}
+\author{Andie Creel for Nature as Capital}
+\date{January 18th, 2023}
+
+
+
+\begin{document}
+\maketitle
+
+% \section{Introduction}
+% In these notes, I build up to solving an optimization problem using a Lagrangian. Optimization problems are common in economics because economists want to find how to maximize a benefit (ex. utility function) or minimize a harm (ex. damage function). The most common optimization problem in economics is maximizing a utility function subject to a constraint. 
+
+\section{Common Derivative Rules}
+Consider a function, $f(x)$, that depends on the variable $x$. Derivatives tell us the slope of the function at a specific point. The slope is the rate of change. \\
+
+\textbf{Notation}: There are many ways to denote that you are taking an derivative. They are all (essentially) equivalent. I will switch between notations to keep the math neat.  
+$$\frac{d}{dx}f(x) = f'(x) = f_x(x) = \Delta f(x)$$
+
+\textbf{Constant rule:} Let c be a constant. 
+$$\frac{d}{dx} cx = c$$
+
+\textbf{Power rule:} $$\frac{d}{dx}x^n = n x^{n-1}$$
+
+\textbf{Product rule:} $$\frac{d}{dx}(f(x) * g(x)) = f'(x)*g(x) + f(x)*g'(x)$$
+
+\textbf{Quotient rule:} $$\frac{d}{dx} \frac{f(x)}{g(x)} = \frac{g(x)*f'(x)  - f(x) * g'(x)}{g(x)^2}$$
+A rhyme that helps me remember the quotient rule: "Low d High minus High d Low all over the square of what's below".  \\
+
+\textbf{Chain Rule:} $$\frac{d}{dx} f(g(x)) = f'(g(x)) * g'(x) $$
+
+\textbf{Log Rules: } $$\frac{d}{dx}\log(x) = \frac{1}{x}$$
+
+I am not sure if you'll need the following log rules for this course but wanted to include them here in case!
+
+$$\log(x*y) = \log(x) + \log(y)$$ 
+
+$$\log(\frac{x}{y}) = \log(x) - \log(y) $$
+
+In this course, unless it's stated otherwise, you can assume all logs are "base e", i.e., 
+$$\log_e(x) = \log(x) = \ln(x).$$ 
+
+
+\textbf{Negative Exponent Rule:} Derivatives of functions with negative exponents follow the same power rule. \\
+$$f(x) = \frac{1}{x^2} = x^{-2}$$
+You could find the derivative of $f(x)$ using the quotient rule (because it is a fraction) or the power rule. \\
+
+\textit{Quotient rule:} 
+$$f'(x) = \frac{x^2 * 0 - 1*2x}{x^4} = \frac{-2x}{x^4} = \frac{-2}{x^3} = -2x^{-3}$$
+
+\textit{Power rule: }
+$$f'(x) = -2x^{-3}$$
+
+With negative exponents, I find the power rule much easier. \\
+
+
+
+\textbf{Partial Derivatives:} An function can depend on more than one variable, i.e., $U(x,y)$. You can take the derivative of that function with respect to a single variable and treat the other as a constant.\\
+
+\textit{Example:} 
+$$U(x,y) = x^{1/3} * y^{2/3}$$
+$$U_x(x,y) = \frac{1}{3}x^{-2/3}*y^{2/3}$$
+$$U_y(x,y)= \frac{2}{3}x^{1/3}y^{-1/3}$$
+
+
+
+\subsection{Examples}
+
+Example 1, power rule:\\ 
+$x$ is a variable. \\
+$$f(x) = 3 + x^2 + 4x^3$$
+$$f'(x) = 2x + 12x^2$$\\
+
+Example 2, logistic growth: \\
+$r$ and $K$ are constants. $x$ is a variable. \\
+$$g(x) = rx(1 - \frac{x}{K})$$
+$$g(x) = rx - \frac{rx^2}{K} $$
+$$g'(x) = r - \frac{2rx}{K}$$ \\
+
+Example 3, profit function: \\
+$a$, $b$ and $c$ are constants. $x$ and $w$ are variables. \\
+$$\pi(x,w) = aw - \frac{b}{2}w^2 - c \frac{w}{x}$$
+$$\frac{d \pi(x,w)}{dx} = c w x^{-2} $$
+$$\frac{d \pi(x,w)}{d w} = a - bw - \frac{c}{x}$$
+
+
+\section{Finding Max \& Min of Functions / Unconstrained Optimization}
+We use derivatives to find the maximum or minimum of a function. Recall that derivatives tell us the slope of a function at a specific point. \\
+
+At a maximum or minimum, the slope of the function will be zero. Therefore, to find the maximum or minimum of a function, we can:
+\begin{enumerate}
+    \item Find the derivative of the function, $f'(x)$.
+    \item Set the derivative of the function equal to zero, $f'(x) = 0$.
+    \item Solve for $x$. This value of $x$ maximizes the function $f(x)$.
+    \item Plug the $x$ into $f(x)$ to find the maximum or minimum value of $f(x)$.
+\end{enumerate}
+
+\subsection{Example One}
+Consider $g(x) = x - x^2$\\
+
+
+\begin{tikzpicture}
+\begin{axis}[axis lines = left,
+    xlabel = \(x\),
+    ylabel = {\(g(x)\)}]
+\addplot[color=black,
+    domain=0:1]
+    {x-x^2};
+\end{axis}
+\end{tikzpicture}
+
+Immediately we can see that the maximum of $g(x)$ is 0.25 and occurs at $x = 0.5$. However, let's solve for it following the steps above. 
+
+\begin{enumerate}
+    \item $g'(x) = 1 - 2x$
+    \item $1 - 2x = 0$.
+    \item $x = \frac{1}{2}$
+    \item $g(\frac{1}{2}) = \frac{1}{2} - \frac{1}{2}^2= 1/2 - 1/4 = 1/4$.
+\end{enumerate}
+
+\subsection{Example two}
+Consider the manager of a fishery. She knows that the fish population grows at the rate $$g(x) = 0.5x(1 - x/100),$$ where $x$ is the population of fish. She wants to find the population level that will lead to the maximum growth rate. How do you solve this problem?\\
+
+First, rewrite $g(x)$
+$$g(x) = \frac{1}{2}x - \frac{x^2}{200}$$
+
+1) Find derivative: 
+$$g'(x) = 1/2 - x/100$$
+
+2) Set equal to zero:
+$$1/2 -x/100 = 0$$
+
+3) Solve for x: 
+$$x = 50$$
+
+4) Plug back into $g(x)$:
+$$g(50) = 1/2*50 - 50^2/200 = 25 - 12.5 = 12.5$$\\
+
+\begin{tikzpicture}
+\begin{axis}[axis lines = left,
+    xlabel = \(x\),
+    ylabel = {\(g(x)\)}]
+\addplot[color=black,
+    domain=0:100]
+    {.5*x - x^2/200};
+\end{axis}
+\end{tikzpicture}
+
+
+% \section{Constrained Optimization}
+
+
+    
+
+
+\end{document}

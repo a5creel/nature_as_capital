@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+\usepackage{caption}
+
+\setlength{\parindent}{0pt}
+
+
+%for headers 
+\pagestyle{fancy}
+\fancyhf{} % for header/footer
+
+\lhead{Creel}
+\rhead{ENV 795 - Nature as Capital}
+\chead{\textbf{Hamiltonians}}
+
+\title{Section Three - Hamiltonians}
+\author{Andie Creel for Nature as Capital}
+\date{February 20th, 2023}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Recall from class that achieving sustainable development (non-declining welfare for future generations) we need to measure capital stocks, flows of welfare from those stocks, and the distribution of owning/accessing those stocks across different people. \\
+
+\textbf{Current Value Hamiltonians} are a tool we use to measure the \textit{flow} of welfare from a \textit{capital stock} in the current time period. It is an annuity value. It's equation is,
+
+$$\delta V = H = W(s, x(s)) + \lambda \dot s$$
+$$ H = divdends + capital\ gains$$
+
+ where $H$ is the value of flows from a stock in a time period, $W(s, x(s))$ is the welfare (or profit) from that time period given the stock, $s$ and management decisions (\textbf{choice variable}), $x(s)$ in that time period, $\lambda$ is the shadow price (capital price) and $\dot s$ is the change in the capital stock in that time period. If the stock was a population, we could model $\dot s$ as logistic growth, the Allee affect, a Holling disk equation, or any other growth equations we've seen to model how a population changes. 
+
+\subsection{Welfare/Well-being/Net Benefits/Profits}
+
+\textbf{In any time period}, we can measure the welfare gained from a stock. Sometimes, the welfare from a stock in a given time period will only be the profit from selling the harvest of a stock. Other times, it will be a more complicated equation that accounts for existence value. \\
+
+For simplicity, let's consider an example where the only welfare we're interested in is the profit gained from harvesting a stock in a time period. In class, we say this written as  
+$$W(s, x(s)) = p*h(x(s)) - c * h(x(s)) $$
+where $h(x(s))$ was the harvest decision given the value of our choice variable, $x(s)$. \\
+
+Let's simplify this equation as say that our choice variable, $x(s)$, is our harvest decision. Meaning, if $x(s) = 4$, we've harvested 4 fish in that time period,  
+
+$$W(s, x(s)) = p*x(s) - c * x(s) $$
+where $p$ is the market price, $x(s)$ is our harvest decision and $c$ is the cost of harvesting a fish (we've assumed costs are linear). \\
+
+Therefore, this welfare equation measures the pay out we get in a given time period (i.e., dividends). 
+
+$$dividends = W(s, x(s))$$
+
+\subsection{Growth of Stock}
+Recall that dot notation, $\dot s$, means the way a stock grows through time. It's the growth rate. We went over many ways a stock can grow in the ecological modeling notes. \\
+
+\subsection{Capital/Shadow Price}
+The shadow price, $\lambda$, the capital price. $\lambda$ measures the value of having one more unit of stock (ex. the value of having one more fish). \\
+
+Therefore we can think of our capital gains (or loss) in any time period as the shadow/capital price multiplied by the capital growth in that time period.
+
+$$capital\ gains = \lambda \dot s $$
+
+The shadow/capital price is why the current value Hamiltonian is so important to natural capital because it is a non-market price for a non-market capital asset. However, it's found using traditional accounting measures. 
+
+\subsection{Finding $\lambda$}
+Sometimes you will be able to directly solve for $\lambda$. However, it's not always possible. What is always possible is some algebraic manipulation of our original equation 
+
+$$\delta V = H = W(s, x(s)) + \lambda \dot s$$
+$$V = \frac{W(s, x(s)) + \lambda(s) \dot s  }{\delta}.$$
+In this equation, we may not know $V$ or $\lambda$. One equation, one unknown, which is a problem because we want to solve for $\lambda$ to get the capital asset price! \\
+
+Luckily, in the video this week, we learned that the marginal value is defined as the price, 
+
+$$\frac{dV}{ds} \equiv p.$$ 
+
+Taking the derivative of the equation above is how Eli gets the price equation as 
+$$ \lambda(s) = \frac{W_s + \frac{\partial \lambda}{\partial s}\dot s }{\delta - \dot s_s}.$$
+
+Which is one equation and one(ish) unknown. The CAPn solves the above equation numerically. 
+
+
+\end{document}

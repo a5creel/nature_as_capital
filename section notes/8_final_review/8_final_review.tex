@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=2.5cm]{geometry} % Set Margins
+
+%% Math and math fonts
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{bbm} % for \mathbbm{1}
+
+% date
+\usepackage[nodayofweek]{datetime}
+
+% Color
+\usepackage{color, xcolor}
+
+% Misc
+\usepackage{environ}  % \collect@body in asmmath
+\usepackage{graphicx} % \includegraphics options
+\usepackage{mdframed} % text boxes
+\usepackage{indentfirst} % Indent first paragraph after section header
+\usepackage[shortlabels]{enumitem} % Control enumerate items with [(a)]
+\usepackage{comment} % Comments
+\usepackage{fancyhdr} % Headers and footers
+
+% Tables
+\usepackage{array}
+
+% Sub-figures and figure placement
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float} 
+
+% Graphing
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+
+% Title Placement
+\usepackage{titling}
+\setlength{\droptitle}{-6em}
+
+%set indent to 
+\setlength{\parindent}{0pt}
+
+%for headers 
+\pagestyle{fancy}
+
+\lhead{Creel}
+\chead{Review}
+\rhead{Nature as Capital}
+
+\title{Final Review}
+\author{Andie Creel}
+
+% Hyper refs
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor  = blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor = blue,
+    anchorcolor = blue
+}
+
+% % Citation management
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authordate,open={(},close={)}}
+
+\begin{document}
+\maketitle
+
+\section{Shadow Price}
+Prices measure scarcity. A shadow price measures the value of relaxing the constraint (\textit{ie} price is defined as the marginal value). The state variable in the constraint we've been concerned with in this class is natural capital. 
+
+\section{Negishi Weight}
+Concept: The welfare weight placed on richer people is higher than that for people when aggregating individuals in a social welfare function. 
+\begin{equation}
+    Negishi \ weight = \frac{1}{marginal \ utility \ of \ money} = \eta
+\end{equation}
+
+Rich people tend to have a lower marginal utility of money than poor people (\textit{ex} \$100 given to Jeff Bezos will not make him as happy as \$100 given to you). Because MU of money is in the denominator, the \textbf{smaller} your MU of money, and the \textbf{larger} your Negishi weight is. \\
+
+\section{Social Welfare Functions}
+The social welfare function looks like 
+\begin{equation}
+    SWF = \sum_i \eta_i V(\mathbf{C_i})
+\end{equation}
+where $\eta_i$ is the Negishi weight of an individual and $V()$ is the welfare and $C_i$ is the consumption of an individual (the choice variable). \\
+
+In class, we haven't used Negishi weights. Instead, we've made the assumption that all fishermen (or whoever we're dealing with) are the same. And then rather than working with a social welfare function (SWF) we just skip to working only with $V(C)$. 
+
+\section{Marginal decision making vs. non-marginal}
+Bear in mind that we've worked on \textit{marginal} decision-making in class. (If you're taking a derivative, then you are "thinking on the margin".) There are other important decisions that are non-marginal (\textit{ex} yes/no, any categorical decision). These decisions are still important, but you will need different tools than what we used in class. \\
+
+An example would be "should we clear-cut a forest or not". The answer to that is yes/no, so our tools can't solve for the optimal choice. However, it's still a really important question to answer. 
+
+\section{How do we actually measure the value of non-consumptive use?}
+In any of these decisions, you need to think about what trade-off a person is \textit{actually} willing to make. \\
+
+Everyone should read:\\
+Krutilla, John V. "Conservation reconsidered." The American Economic Review 57.4 (1967): 777-786.\\
+
+and the response: \\
+Banzhaf, H. Spencer. "The environmental turn in natural resource economics: john krutilla and “conservation reconsidered”." Journal of the History of Economic Thought 41.1 (2019): 27-46.\\
+
+Note that you need to think carefully about who has the right and who has the obligation to care for things. You do need to think about the distributional consequences of assigning value when some individuals may not have a lot to give up.
+
+
+\section{Natural Capital in Policy }
+What Eli was working on in the White House: \url{https://www.whitehouse.gov/wp-content/uploads/2023/01/Natural-Capital-Accounting-Strategy-final.pdf}\\
+
+
+
+\end{document}
