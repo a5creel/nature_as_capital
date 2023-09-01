@@ -41,7 +41,7 @@ If you think you've found a typo, there is a good chance you have! Please email 
 
 
 # Grading and Exams 
-- [Problem set grading](<section_notes/0_pset_grading/0_pset_grading.pdg>)
+- [Problem set grading](<section_notes/0_pset_grading/0_pset_grading.pdf>)
 - [Midterm review](<section_notes/6_midterm_review/6_midterm_review.pdf>)
   - [Recording](https://yale.zoom.us/rec/share/wuVOAg56_Xqua4gBPzSGs9NLKSN_pDYUgJZRF-WnbTj9lYteDBWcT7RdvmoFKNWG.tGtRqjQ5lZ5_GG6B?startTime=1679953078000) 
 - [Midterm concepts missed](<section_notes/6_midterm_review/select_midterm_answers.pdf>)
