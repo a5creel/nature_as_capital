@@ -11,6 +11,6 @@ These are the notes I prepared as a teaching fellow for Eli Fenichel's Nature as
 If you think you've found a typo, there is a good chance you have! Please email me so I can fix it.
 
 - [Conceptual models](class_notes/1_conceptual_models/1_conceptual_models.pdf)
-- [Ecological modeling](class_notes/2_ecological_modeling/2_ecological_modeling.pdf)
-- [Dynamic concepts](class_notes/3_dynamic_concepts/3_dynamic_concepts.pdf)
+- [Ecological modeling](<class_notes/2_ecological modeling/2_ecological modeling.pdf>)
+- [Dynamic concepts](<class_notes/3_dynamic concepts/3_dynamic concepts.pdf>)
 - [Introduction to natural capital](<class_notes/4_Natural Capital/4_Natural Capital.pdf>)
