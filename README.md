@@ -1,8 +1,6 @@
 # Nature as Capital 
 These are the notes I prepared as a teaching fellow for Eli Fenichel's Nature as Capital course in Spring of 2023. 
 
-If you think you've found a typo, there is a good chance you have! Please email me so I can fix it.
-
 
 # Tutorial Material 
 
@@ -45,3 +43,7 @@ If you think you've found a typo, there is a good chance you have! Please email 
 - [Midterm review](<section_notes/6_midterm_review/6_midterm_review.pdf>)
   - [Recording](https://yale.zoom.us/rec/share/wuVOAg56_Xqua4gBPzSGs9NLKSN_pDYUgJZRF-WnbTj9lYteDBWcT7RdvmoFKNWG.tGtRqjQ5lZ5_GG6B?startTime=1679953078000) 
 - [Midterm concepts missed](<section_notes/6_midterm_review/select_midterm_answers.pdf>)
+
+#
+
+I was awarded "Excellence as a Teaching Fellow" from the Yale School of the Environment for my efforts and honored at the 2023 commencement ceremony. 
