@@ -46,4 +46,4 @@ These are the notes I prepared as a teaching fellow for Eli Fenichel's Nature as
 
 #
 
-I was awarded "Excellence as a Teaching Fellow" from the Yale School of the Environment for my efforts and honored at the 2023 commencement ceremony. 
+I was awarded "Excellence as a Teaching Fellow" from the Yale School of the Environment for my efforts with this course and honored at the 2023 commencement ceremony. 
